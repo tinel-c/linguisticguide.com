@@ -87,7 +87,7 @@ export function initContactForm() {
       if (typeof grecaptcha !== 'undefined') {
         captchaToken = await new Promise((resolve, reject) => {
           grecaptcha.ready(() => {
-            grecaptcha.execute('6Ld73oEUAAAAAHkCtokuOFv6ePZQH0O_MQ_Skfiu', { action: 'submit' })
+            grecaptcha.execute('6LfHLkAsAAAAAGgGmdnL2_KbRObY9ZjJf_tdGF_N', { action: 'submit' })
               .then(resolve)
               .catch(reject);
           });
