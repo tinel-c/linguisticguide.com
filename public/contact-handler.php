@@ -27,6 +27,7 @@ define('SUBJECT_PREFIX', '[LinguisticGuide] ');
 define('MAX_MESSAGE_LENGTH', 5000);
 define('ENABLE_RATE_LIMITING', true);
 define('MAX_SUBMISSIONS_PER_HOUR', 5);
+define('RECAPTCHA_SECRET_KEY', '6Ld73oEUAAAAAMo2y_9o0tFO6q_yW2ZAPfx5rAt3');
 
 /**
  * Sanitize input data
@@ -123,6 +124,58 @@ function sendEmail($data) {
     return $success;
 }
 
+/**
+ * Verify reCAPTCHA v3 token with Google
+ */
+function verifyRecaptcha($token, $expectedAction = 'submit') {
+    if (empty($token)) {
+        return false;
+    }
+    
+    $secret = RECAPTCHA_SECRET_KEY;
+    $url = 'https://www.google.com/recaptcha/api/siteverify';
+    
+    // Use cURL for better reliability on shared hosts
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+        'secret' => $secret,
+        'response' => $token
+    ]));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    
+    $response = curl_exec($ch);
+    $error = curl_error($ch);
+    curl_close($ch);
+    
+    if ($error) {
+        error_log('reCAPTCHA cURL error: ' . $error);
+        return false;
+    }
+    
+    $data = json_decode($response, true);
+    
+    if (!$data || !isset($data['success']) || !$data['success']) {
+        error_log('reCAPTCHA failure: ' . ($data['error-codes'][0] ?? 'unknown error'));
+        return false;
+    }
+    
+    // For v3, also verify the score and action
+    // Threshold is 0.5 (1.0 is very likely a human, 0.0 is very likely a bot)
+    if (!isset($data['score']) || $data['score'] < 0.5) {
+        error_log('reCAPTCHA low score: ' . ($data['score'] ?? 'null'));
+        return false;
+    }
+    
+    if (isset($data['action']) && $data['action'] !== $expectedAction) {
+        error_log('reCAPTCHA action mismatch: ' . $data['action']);
+        return false;
+    }
+    
+    return true;
+}
+
 // Main execution
 try {
     // Check rate limiting
@@ -138,6 +191,16 @@ try {
     // Get POST data
     $rawData = file_get_contents('php://input');
     $data = json_decode($rawData, true);
+    
+    // Validate reCAPTCHA
+    if (!isset($data['recaptchaToken']) || !verifyRecaptcha($data['recaptchaToken'])) {
+        http_response_code(400);
+        echo json_encode([
+            'success' => false,
+            'message' => 'reCAPTCHA verification failed. Please try again.'
+        ]);
+        exit;
+    }
     
     // Validate required fields
     if (!isset($data['name']) || !isset($data['email']) || !isset($data['message'])) {
