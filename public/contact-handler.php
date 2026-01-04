@@ -14,11 +14,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Set headers
+// Set security headers
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
+header('X-Frame-Options: SAMEORIGIN');
+header('X-Content-Type-Options: nosniff');
+header('X-XSS-Protection: 1; mode=block');
+header('Referrer-Policy: strict-origin-when-cross-origin');
+header('Content-Security-Policy: default-src \'self\'; script-src \'self\' https://www.google.com https://www.gstatic.com; frame-src https://www.google.com; style-src \'self\' \'unsafe-inline\' https://fonts.googleapis.com; font-src \'self\' https://fonts.gstatic.com;');
 
 // Configuration
 define('RECIPIENT_EMAIL', 'monica.vlad@linguisticguide.com');
@@ -114,7 +119,9 @@ function sendEmail($data) {
     // Email headers
     $headers = [];
     $headers[] = 'From: ' . FROM_EMAIL;
-    $headers[] = 'Reply-To: ' . $data['email'];
+    // Sanitize email to prevent header injection
+    $replyTo = str_replace(["\r", "\n"], '', $data['email']);
+    $headers[] = 'Reply-To: ' . $replyTo;
     $headers[] = 'X-Mailer: PHP/' . phpversion();
     $headers[] = 'Content-Type: text/plain; charset=UTF-8';
     
