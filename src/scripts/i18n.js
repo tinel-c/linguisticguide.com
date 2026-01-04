@@ -7,7 +7,7 @@ class Translator {
     constructor() {
         this.currentLang = this.getInitialLanguage();
         this.translations = {};
-        this.csvPath = './assets/translations.csv';
+        this.csvPath = '/assets/translations.csv';
     }
 
     getInitialLanguage() {
