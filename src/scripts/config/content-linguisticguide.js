@@ -9,7 +9,7 @@ export const siteConfig = {
   tagline: 'Technical translations from German and English into Romanian',
   description: '10 years of experience and over 3 million words translated and revised',
   email: 'monica.vlad@linguisticguide.com',
-  
+
   // Hero Section
   hero: {
     title: ['Monica Vlad', 'Professional Technical Translator'],
@@ -18,7 +18,7 @@ export const siteConfig = {
     primaryCTA: 'About Me',
     secondaryCTA: 'Get Started'
   },
-  
+
   // About Section
   about: {
     subtitle: 'About Me',
@@ -40,7 +40,7 @@ export const siteConfig = {
       'More than 3 million words translated and revised'
     ]
   },
-  
+
   // Services
   services: [
     {
@@ -79,8 +79,8 @@ export const siteConfig = {
       description: 'Translation of industrial, engineering, and manufacturing documentation with technical precision.',
       icon: 'tools'
     }
-  },
-  
+  ],
+
   // Industries & Specializations
   industries: [
     { icon: '🚗', label: 'Automotive' },
@@ -89,8 +89,8 @@ export const siteConfig = {
     { icon: '⚙️', label: 'Manufacturing' },
     { icon: '💼', label: 'Business' },
     { icon: '📄', label: 'Documentation' }
-  },
-  
+  ],
+
   // Testimonials (Placeholder - update with real testimonials if available)
   testimonials: [
     {
@@ -100,7 +100,7 @@ export const siteConfig = {
       position: 'Position, Company'
     }
   ],
-  
+
   // Process Steps
   process: [
     {
@@ -129,7 +129,7 @@ export const siteConfig = {
       description: 'Final delivery in your preferred format with ongoing support for any questions or clarifications.'
     }
   ],
-  
+
   // Contact Info
   contact: {
     title: 'I AM ACCEPTING NEW PROJECTS',
@@ -138,14 +138,13 @@ export const siteConfig = {
     responseTime: 'Within 24 hours',
     workingHours: 'Monday - Friday, 9AM - 6PM (Bucharest Time)'
   },
-  
+
   // Social Links
   social: {
-    proz: 'https://www.proz.com/',
-    linkedin: 'https://www.linkedin.com/',
+    proz: 'https://www.proz.com/feedback-card/638170?text=Monica%20Vlad%20%7C%20Feedback%20card',
+    linkedin: 'https://www.linkedin.com/in/monica-vlad-1300185/',
     xing: 'https://www.xing.com/'
   }
 };
 
 export default siteConfig;
-
