@@ -1,0 +1,8 @@
+# robots.txt for linguisticguide.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://linguisticguide.com/sitemap.xml
+

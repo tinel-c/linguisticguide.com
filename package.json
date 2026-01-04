@@ -1,0 +1,31 @@
+{
+  "name": "linguisticguide",
+  "version": "2.0.0",
+  "description": "Professional translator portfolio website for linguisticguide.com",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext .js",
+    "format": "prettier --write \"src/**/*.{js,css,html}\"",
+    "prepare:edomenii": "npm run build && node -e \"require('fs').copyFileSync('public/.htaccess','dist/.htaccess');require('fs').copyFileSync('public/contact-handler.php','dist/contact-handler.php');console.log('✅ Files prepared for eDomenii.ro deployment')\""
+  },
+  "keywords": [
+    "translation",
+    "portfolio",
+    "translator",
+    "website"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.1",
+    "terser": "^5.44.1",
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "gsap": "^3.12.4"
+  }
+}

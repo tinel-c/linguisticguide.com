@@ -1,0 +1,114 @@
+/* Premium Language Switcher Styles */
+
+.nav__languages {
+    display: flex;
+    gap: 0.75rem;
+    margin: 0 1.5rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    align-items: center;
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    filter: grayscale(0.8) opacity(0.6);
+}
+
+.lang-btn:hover {
+    transform: scale(1.15);
+    filter: grayscale(0) opacity(1);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.lang-btn.active {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    filter: grayscale(0) opacity(1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Flag Icon SVG Styles */
+.lang-btn svg {
+    width: 20px;
+    height: 15px;
+    border-radius: 2px;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* Label Tooltip */
+.lang-btn::after {
+    content: attr(data-lang-name);
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--primary-color);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    z-index: 100;
+}
+
+.lang-btn:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Specific adjustments for sticky header */
+.header--sticky .nav__languages {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+.header--sticky .lang-btn {
+    filter: grayscale(0.8) opacity(0.4);
+}
+
+.header--sticky .lang-btn:hover,
+.header--sticky .lang-btn.active {
+    filter: grayscale(0) opacity(1);
+}
+
+.header--sticky .lang-btn.active {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 991px) {
+    .nav__languages {
+        margin: 0 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav__languages {
+        order: 2;
+        margin-left: auto;
+        margin-right: 1rem;
+    }
+}

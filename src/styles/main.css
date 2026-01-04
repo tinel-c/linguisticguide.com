@@ -1,0 +1,21 @@
+/* Main Stylesheet - Import all component styles */
+
+/* Base Styles */
+@import './base/variables.css';
+@import './base/reset.css';
+@import './base/typography.css';
+
+/* Layout Styles */
+@import './layout/header.css';
+@import './layout/footer.css';
+@import './layout/grid.css';
+
+/* Component Styles */
+@import './components/buttons.css';
+@import './components/forms.css';
+@import './components/cards.css';
+@import './components/navigation.css';
+@import './components/hero.css';
+@import './components/sections.css';
+@import './components/feature-boxes.css';
+@import './components/lang-switcher.css';
