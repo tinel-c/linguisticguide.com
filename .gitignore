@@ -42,3 +42,6 @@ temp/
 Thumbs.db
 .DS_Store
 
+# Sensitive Configuration
+public/config.php
+

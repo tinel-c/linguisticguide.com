@@ -25,6 +25,11 @@ header('X-XSS-Protection: 1; mode=block');
 header('Referrer-Policy: strict-origin-when-cross-origin');
 header('Content-Security-Policy: default-src \'self\'; script-src \'self\' https://www.google.com https://www.gstatic.com; frame-src https://www.google.com; style-src \'self\' \'unsafe-inline\' https://fonts.googleapis.com; font-src \'self\' https://fonts.gstatic.com; img-src \'self\' data: https://images.unsplash.com;');
 
+// Include external configuration if it exists (for sensitive keys like reCAPTCHA)
+if (file_exists(__DIR__ . '/config.php')) {
+    require_once __DIR__ . '/config.php';
+}
+
 // Configuration
 define('RECIPIENT_EMAIL', 'monica.vlad@linguisticguide.com');
 define('FROM_EMAIL', 'noreply@linguisticguide.com');
@@ -32,7 +37,11 @@ define('SUBJECT_PREFIX', '[LinguisticGuide] ');
 define('MAX_MESSAGE_LENGTH', 5000);
 define('ENABLE_RATE_LIMITING', true);
 define('MAX_SUBMISSIONS_PER_HOUR', 5);
-define('RECAPTCHA_SECRET_KEY', '6Ld73oEUAAAAAMo2y_9o0tFO6q_yW2ZAPfx5rAt3');
+
+// reCAPTCHA Secret Key (Should be defined in config.php)
+if (!defined('RECAPTCHA_SECRET_KEY')) {
+    define('RECAPTCHA_SECRET_KEY', 'YOUR_SECRET_KEY_HERE');
+}
 
 /**
  * Sanitize input data

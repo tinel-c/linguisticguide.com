@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint src --ext .js",
     "format": "prettier --write \"src/**/*.{js,css,html}\"",
-    "prepare:edomenii": "npm run build && node -e \"require('fs').copyFileSync('public/.htaccess','dist/.htaccess');require('fs').copyFileSync('public/contact-handler.php','dist/contact-handler.php');console.log('✅ Files prepared for eDomenii.ro deployment')\""
+    "prepare:edomenii": "npm run build && node -e \"const fs=require('fs');const files=['.htaccess','contact-handler.php','config.php'];files.forEach(f=>{const p='public/'+f;if(fs.existsSync(p))fs.copyFileSync(p,'dist/'+f)});console.log('✅ Files prepared for eDomenii.ro deployment')\""
   },
   "keywords": [
     "translation",
